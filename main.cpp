@@ -5,6 +5,8 @@
 
 DigitalIn  startSwitch(dp15);
 DigitalIn  reverseSwitch(dp16);
+DigitalIn  startInput(dp24);
+DigitalIn  reverseInput(dp25);
 
 DigitalOut started(dp17);
 DigitalOut reversed(dp18);
@@ -52,8 +54,8 @@ int main() {
     bool REVERSED;
     while (true) {
         Out(ind);
-        STARTED  = startSwitch;
-        REVERSED = reverseSwitch;
+        STARTED  = startSwitch   || startInput;
+        REVERSED = reverseSwitch || reverseInput;
         Status(STARTED, REVERSED);
         if (REVERSED) {
             Inc(ind);
