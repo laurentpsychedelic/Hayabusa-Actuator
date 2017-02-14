@@ -3,18 +3,15 @@
 #include "mbed.h"
 #pragma GCC diagnostic pop
 
-DigitalIn  startSwitch(p21);
-DigitalIn  reverseSwitch(p22);
-DigitalOut started(p23);
-DigitalOut reversed(p24);
-DigitalOut o1(p17);
-DigitalOut o2(p18);
-DigitalOut o3(p19);
-DigitalOut o4(p20);
-DigitalOut p1(LED1);
-DigitalOut p2(LED2);
-DigitalOut p3(LED3);
-DigitalOut p4(LED4);
+DigitalIn  startSwitch(dp15);
+DigitalIn  reverseSwitch(dp16);
+
+DigitalOut started(dp17);
+DigitalOut reversed(dp18);
+DigitalOut o1(dp10);
+DigitalOut o2(dp11);
+DigitalOut o3(dp13);
+DigitalOut o4(dp14);
 
 int table[16] = {
     0, 0, 1, 1,
@@ -42,10 +39,6 @@ void Out(int ind) {
     o2 = table[4 * ind + 1];
     o3 = table[4 * ind + 2];
     o4 = table[4 * ind + 3];
-    p1 = table[4 * ind];
-    p2 = table[4 * ind + 1];
-    p3 = table[4 * ind + 2];
-    p4 = table[4 * ind + 3];
 }
 
 void Status(bool STARTED, bool REVERSED) {
@@ -59,7 +52,7 @@ int main() {
     bool REVERSED;
     while (true) {
         Out(ind);
-        STARTED = startSwitch;
+        STARTED  = startSwitch;
         REVERSED = reverseSwitch;
         Status(STARTED, REVERSED);
         if (REVERSED) {
